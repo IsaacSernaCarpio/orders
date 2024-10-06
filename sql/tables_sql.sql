@@ -2,7 +2,7 @@ USE           orders;
 
 -- DROP TABLE product;
 -- TRUNCATE TABLE product;
-CREATE TABLE product(
+CREATE TABLE products(
 	id INT PRIMARY KEY AUTO_INCREMENT, 
     product_key VARCHAR(150) UNIQUE,
     product_description VARCHAR(255),
@@ -11,6 +11,23 @@ CREATE TABLE product(
     id_image VARCHAR(50),
     stock INT,
     product_active BOOLEAN,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE categories(
+	id INT PRIMARY KEY AUTO_INCREMENT, 
+    category_description VARCHAR(150) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE menu_items(
+	id INT PRIMARY KEY AUTO_INCREMENT, 
+    available BOOLEAN,
+    price DECIMAL(10, 2) DEFAULT 0.0,
+    product_id INT,
+    category_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
