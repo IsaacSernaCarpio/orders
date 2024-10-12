@@ -43,5 +43,5 @@ class MenuItemModel(Base, MySQLModel):
     def get_columns(cls):
         return cls.__table__.columns.keys()
 
-class MenuItemModelCollection(MySQLModelCollection):
+class MenuItemCollection(MySQLModelCollection):
     __model__ = MenuItemModel

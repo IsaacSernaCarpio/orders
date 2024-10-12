@@ -37,5 +37,5 @@ class CategoryModel(Base, MySQLModel):
     def get_columns(cls):
         return cls.__table__.columns.keys()
 
-class CategoryModelCollection(MySQLModelCollection):
+class CategoryCollection(MySQLModelCollection):
     __model__ = CategoryModel
