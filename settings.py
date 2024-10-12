@@ -49,10 +49,17 @@ if ENVIRONMENT == 'dev':
         _port=DEV_MYSQL_PORT
     )
 else:
+    MYSQL_HOST = getenv('LOCAL_MYSQL_HOST')
+    MYSQL_DB = getenv('LOCAL_MYSQL_DB')
+    MYSQL_USER = getenv('LOCAL_MYSQL_USER')
+    MYSQL_PASSWORD = getenv('LOCAL_MYSQL_PASSWORD')
+    MYSQL_PORT = getenv('LOCAL_MYSQL_PORT')
     MYSQL_CREDENTIAL = MySQLCredential(
-         _db_name='',
-        _user='',
-        _password='',
+        _host=MYSQL_HOST,
+        _db_name=MYSQL_DB,
+        _user=MYSQL_USER,
+        _password=MYSQL_PASSWORD,
+        _port=MYSQL_PORT
     )
 
 print(f"\t> host: {MYSQL_CREDENTIAL.host.upper()} {ENVIRONMENT}")
