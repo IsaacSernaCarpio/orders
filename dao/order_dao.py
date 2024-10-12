@@ -8,46 +8,46 @@ from libs.sources.mysql_source import JoinType
 from libs.utils.decorators import step
 
 # models
-from models.category_model import CategoryModel
-from models.category_model import CategoryCollection
+from models.order_model import OrderModel
+from models.order_model import OrderCollection
 
 
-class CategoryDao(object):
+class OrderDao(object):
 
     def __init__(self, _db=None) -> None:
         self.db = _db
 
-    @step("[DAO] insert_category_dao ...", 2)
-    def insert_category_dao(self, _model:CategoryModel) -> CategoryModel:
+    @step("[DAO] insert_order_dao ...", 2)
+    def insert_order_dao(self, _model:OrderModel) -> OrderModel:
         model = self.db.insert(_model, True)
         return model
     
-    @step("[DAO] get_category_dao ...", 2)
-    def get_category_dao(self, _model:CategoryModel) -> CategoryModel:
+    @step("[DAO] get_order_dao ...", 2)
+    def get_order_dao(self, _model:OrderModel) -> OrderModel:
         record = self.db.select_one(_model)
         return record
     
-    @step("[DAO] delete_category_dao ...", 2)
-    def delete_category_dao(self, _model:CategoryModel):
+    @step("[DAO] delete_order_dao ...", 2)
+    def delete_order_dao(self, _model:OrderModel):
         self.db.delete(_model)
         return True
     
-    @step("[DAO] update_category_dao ...", 2)
-    def update_category_dao(self, _model:CategoryModel):
+    @step("[DAO] update_order_dao ...", 2)
+    def update_order_dao(self, _model:OrderModel):
         self.db.update(_model)
         return True
     
-    @step("[DAO] search_categories ...", 2)
-    def search_categories(
+    @step("[DAO] search_orders ...", 2)
+    def search_orders(
         self,
-        _model:CategoryModel,
+        _model:OrderModel,
         _filters=None,
         _ordering=None,
         _sorting=None,
         _limit=None,
         _page=None
     ):
-        filters = CategoryFiltersDao(_model, _filters)
+        filters = OrderFiltersDao(_model, _filters)
         filters.check_thatfiltersarenotnull()
         custom_filters = filters.build_filters()
 
@@ -66,7 +66,7 @@ class CategoryDao(object):
             _page=_page
         )
 
-        collection = CategoryCollection()
+        collection = OrderCollection()
         collection.fill(model_list)
 
         count = self.db.count_many_with_joins(
@@ -79,7 +79,7 @@ class CategoryDao(object):
         return collection, next_page, count
 
 
-class CategoryFiltersDao(FiltersDao):
+class OrderFiltersDao(FiltersDao):
 
     def build_filters(self):
         model_filters_list = self.get_modelfilterslist()
