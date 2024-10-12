@@ -25,7 +25,7 @@ class Mock():
         return None
 
 
-class IProductDaoTest(TestCase):
+class InsertProductDaoTest(TestCase):
 
     @mock.patch.object(
         ProductDao,
@@ -56,6 +56,8 @@ class IProductDaoTest(TestCase):
         if src_mysql:
             src_mysql.close_connection()
 
+
+class UpdateProductDaoTest(TestCase):
     @mock.patch.object(
         ProductDao,
         'get_product_dao',
