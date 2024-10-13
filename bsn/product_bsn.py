@@ -47,52 +47,56 @@ class ProductBsn(object):
         product_model.product_description = _product_schema.product_description
         product_model.unit_of_measure = _product_schema.unit_of_measure
         product_model.stock = _product_schema.stock
+        product_model.id_image = _product_schema.id_image
         
         model = self.dao.insert_product_dao(product_model)
         
         return model
 
-    def get_product_by_id(self, _id: int):
+    def get_product_by_id_bsn(self, _product_id: int):
         product_model = ProductModel()
-        product_model.id = _id
+        product_model.id = _product_id
         try:
             model_found = self.dao.get_product_dao(product_model)
             return model_found
         except NoRecordFoundError:
-            error_msg = f"No existe producto: {_id} "
+            error_msg = f"No existe producto: {_product_id} "
             raise BusinessError(error_msg)
     
-    def delete_product_by_id(self, _id: int):
+    def delete_product_by_id_bsn(self, _product_id: int):
         try:
             product_model = ProductModel()
-            product_model.id = _id
+            product_model.id = _product_id
             self.dao.delete_product_dao(product_model)
             return True
         except Exception:
             return False
         
-    def update_product_bsn(self, _id: int):
-        product_model_found = self.check_product_key()
-        product_model_update = self.get_product_by_id(_id)
+    def update_product_bsn(
+        self,
+        _product_id: int,
+        _product_schema: ProductSchema
+    ):
+        product_found = self.get_product_by_id_bsn(_product_id)
+        product_exist = self.check_product_key(_product_schema.product_key)
 
-        if product_model_found and product_model_update.id !=  product_model_found.id \
-            and  self.data.product_key == product_model_found.product_key:
-            error_msg = f"La clave: {self.data.product_key} ya existe"
+        if product_exist and product_found.id != product_exist.id \
+            and _product_schema.product_key == product_exist.product_key:
+            error_msg = f"La clave: {_product_schema.product_key} ya existe"
             raise BusinessError(error_msg)
 
+        # set data
+        product_found.product_key = _product_schema.product_key
+        product_found.product_description = _product_schema.product_description
+        product_found.unit_of_measure = _product_schema.unit_of_measure
+        product_found.stock = _product_schema.stock
+        product_found.id_image = _product_schema.id_image
         
-        product_model_update.product_key = self.data.product_key
-        product_model_update.product_description = self.data.product_description
-        product_model_update.unit_of_measure = self.data.unit_of_measure
-        product_model_update.stock = self.data.stock
-        product_model_update.product_location = self.data.product_location
-        product_model_update.updated_at = Tools.get_date_now()
+        self.dao.update_product_dao(product_found)
         
-        self.dao.update_product_dao(product_model_update)
-        
-        return product_model_update
+        return True
 
-    def get_prodcut_data(
+    def get_products(
         self,
         _ordering=None,
         _sorting=None,
