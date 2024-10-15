@@ -12,7 +12,7 @@ from models.order_model import OrderModel
 from models.order_model import OrderCollection
 
 
-class OrderDao(object):
+class OrderDao:
 
     def __init__(self, _db=None) -> None:
         self.db = _db
@@ -21,22 +21,22 @@ class OrderDao(object):
     def insert_order_dao(self, _model:OrderModel) -> OrderModel:
         model = self.db.insert(_model, True)
         return model
-    
+
     @step("[DAO] get_order_dao ...", 2)
     def get_order_dao(self, _model:OrderModel) -> OrderModel:
         record = self.db.select_one(_model)
         return record
-    
+
     @step("[DAO] delete_order_dao ...", 2)
     def delete_order_dao(self, _model:OrderModel):
         self.db.delete(_model)
         return True
-    
+
     @step("[DAO] update_order_dao ...", 2)
     def update_order_dao(self, _model:OrderModel):
         self.db.update(_model)
         return True
-    
+
     @step("[DAO] search_orders ...", 2)
     def search_orders(
         self,
@@ -51,7 +51,7 @@ class OrderDao(object):
         filters.check_thatfiltersarenotnull()
         custom_filters = filters.build_filters()
 
-        # others model 
+        # others model
         join_models = []
         join_type = JoinType.JOIN
 
@@ -89,13 +89,13 @@ class OrderFiltersDao(FiltersDao):
         if self.filters_dto is None or len(self.filters_dto) == 0:
             return custom_filters_list
 
-        for filter in self.filters_dto:
+        for _filter in self.filters_dto:
             custom_filters_list.append(
                 self.get_filter(
                     self.model,
-                    filter.field_name,
-                    filter.operator,
-                    filter.value
+                    _filter.field_name,
+                    _filter.operator,
+                    _filter.value
                 )
             )
 

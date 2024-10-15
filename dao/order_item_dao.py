@@ -12,7 +12,7 @@ from models.order_item_model import OrderItemModel
 from models.order_item_model import OrderItemCollection
 
 
-class OrderItemDao(object):
+class OrderItemDao:
 
     def __init__(self, _db=None) -> None:
         self.db = _db
@@ -21,22 +21,22 @@ class OrderItemDao(object):
     def insert_order_item_dao(self, _model:OrderItemModel) -> OrderItemModel:
         model = self.db.insert(_model, True)
         return model
-    
+
     @step("[DAO] get_order_item_dao ...", 2)
     def get_order_item_dao(self, _model:OrderItemModel) -> OrderItemModel:
         record = self.db.select_one(_model)
         return record
-    
+
     @step("[DAO] delete_order_item_dao ...", 2)
     def delete_order_item_dao(self, _model:OrderItemModel):
         self.db.delete(_model)
         return True
-    
+
     @step("[DAO] update_order_item_dao ...", 2)
     def update_order_item_dao(self, _model:OrderItemModel):
         self.db.update(_model)
         return True
-    
+
     @step("[DAO] search_categories ...", 2)
     def search_order_items(
         self,
@@ -51,7 +51,7 @@ class OrderItemDao(object):
         filters.check_thatfiltersarenotnull()
         custom_filters = filters.build_filters()
 
-        # others model 
+        # others model
         join_models = []
         join_type = JoinType.JOIN
 
@@ -89,13 +89,13 @@ class OrderItemFiltersDao(FiltersDao):
         if self.filters_dto is None or len(self.filters_dto) == 0:
             return custom_filters_list
 
-        for filter in self.filters_dto:
+        for _filter in self.filters_dto:
             custom_filters_list.append(
                 self.get_filter(
                     self.model,
-                    filter.field_name,
-                    filter.operator,
-                    filter.value
+                    _filter.field_name,
+                    _filter.operator,
+                    _filter.value
                 )
             )
 
