@@ -19,7 +19,7 @@ from models.product_model import ProductModel
 from schemas.product_schema import ProductSchema
 
 
-class ProductBsn(object):
+class ProductBsn:
 
     def __init__(
         self,
@@ -27,7 +27,7 @@ class ProductBsn(object):
     ) -> None:
         self.dao = ProductDao(_src_mysql) if _src_mysql else None
         self.columns = ProductModel.get_columns()
-    
+
     def check_product_key(self, _product_key):
         product_model = ProductModel()
         product_model.product_key = _product_key
@@ -35,7 +35,7 @@ class ProductBsn(object):
             model_found = self.dao.get_product_dao(product_model)
             return model_found
         except NoRecordFoundError:
-            False
+            return False
 
     def create_product_bsn(self, _product_schema: ProductSchema):
         if self.check_product_key(_product_schema.product_key):
@@ -48,9 +48,9 @@ class ProductBsn(object):
         product_model.unit_of_measure = _product_schema.unit_of_measure
         product_model.stock = _product_schema.stock
         product_model.id_image = _product_schema.id_image
-        
+
         model = self.dao.insert_product_dao(product_model)
-        
+
         return model
 
     def get_product_by_id_bsn(self, _product_id: int):
@@ -59,10 +59,10 @@ class ProductBsn(object):
         try:
             model_found = self.dao.get_product_dao(product_model)
             return model_found
-        except NoRecordFoundError:
+        except NoRecordFoundError as e_no:
             error_msg = f"No existe producto: {_product_id} "
-            raise BusinessError(error_msg)
-    
+            raise BusinessError(error_msg) from e_no
+
     def delete_product_by_id_bsn(self, _product_id: int):
         try:
             product_model = ProductModel()
@@ -71,7 +71,7 @@ class ProductBsn(object):
             return True
         except Exception:
             return False
-        
+
     def update_product_bsn(
         self,
         _product_id: int,
@@ -91,9 +91,9 @@ class ProductBsn(object):
         product_found.unit_of_measure = _product_schema.unit_of_measure
         product_found.stock = _product_schema.stock
         product_found.id_image = _product_schema.id_image
-        
+
         self.dao.update_product_dao(product_found)
-        
+
         return True
 
     def get_products(
@@ -124,4 +124,3 @@ class ProductBsn(object):
         )
 
         return items, next_page, total_records
- 
