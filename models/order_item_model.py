@@ -33,13 +33,13 @@ class OrderItemModel(Base, MySQLModel):
     def __repr__(self):
         value = f"OrderItemModel: {self.get_dict()}"
         return value
-    
+
     @validates('notes')
-    def convert_to_uppercase(self, key, value):
+    def convert_to_uppercase(self, value):
         if value is not None:
             return value.upper()
         return value
-    
+
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()

@@ -5,7 +5,6 @@ from sqlalchemy import TIMESTAMP
 from sqlalchemy import BOOLEAN
 from sqlalchemy import DECIMAL
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import validates
 from sqlalchemy.orm import relationship
 
 # datetime
@@ -38,7 +37,7 @@ class MenuItemModel(Base, MySQLModel):
     def __repr__(self):
         value = f"MenuItemModel: {self.get_dict()}"
         return value
-    
+
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()

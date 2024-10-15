@@ -19,7 +19,7 @@ from libs.models.base_mysql import MySQLModelCollection
 
 
 class ProductModel(Base, MySQLModel):
-    
+
     __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -36,13 +36,13 @@ class ProductModel(Base, MySQLModel):
     def __repr__(self):
         value = f"ProductModel: {self.get_dict()}"
         return value
-    
+
     @validates('product_key', 'product_description', 'unit_of_measure')
-    def convert_to_uppercase(self, key, value):
+    def convert_to_uppercase(self, value):
         if value is not None:
             return value.upper()
         return value
-    
+
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()
