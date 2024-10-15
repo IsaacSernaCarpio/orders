@@ -31,7 +31,7 @@ class Mock():
         )
 
         return product_schema
-    
+
     @classmethod
     def product_schema_update_dummy(cls):
         product_schema = ProductSchema(
@@ -62,7 +62,7 @@ class CreateProductBsnTest(TestCase):
 
         # bsn
         bsn_auth = ProductBsn(_src_mysql=src_mysql)
-        
+
         product_schema = Mock.product_schema_dummy()
         product_model = bsn_auth.create_product_bsn(product_schema)
 
@@ -90,7 +90,7 @@ class GetProductByIdBsnTest(TestCase):
 
         # bsn
         bsn_auth = ProductBsn(_src_mysql=src_mysql)
-        
+
         # params
         product_id = 1
 
@@ -120,7 +120,7 @@ class DeleteProductByIdBsnTest(TestCase):
 
         # bsn
         bsn_auth = ProductBsn(_src_mysql=src_mysql)
-        
+
         # params
         product_id = 2
 
@@ -149,7 +149,7 @@ class UpdateProductBsnTest(TestCase):
 
         # bsn
         bsn_auth = ProductBsn(_src_mysql=src_mysql)
-        
+
         # params
         product_id = 1
         product_schema = Mock.product_schema_update_dummy()

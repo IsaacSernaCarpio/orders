@@ -2,10 +2,6 @@
 from unittest import TestCase
 from unittest import mock
 
-# filters
-from libs.filters.filters_base import FilterField
-from libs.filters.filters_base import FilterOperator
-
 # sources
 from libs.sources.mysql_source import MySQLSource
 
@@ -38,10 +34,10 @@ class InsertProductDaoTest(TestCase):
     ) -> None:
         # src
         src_mysql = MySQLSource(MYSQL_CREDENTIAL)
-        
+
         # instance
         dao_product = ProductDao(src_mysql)
-        
+
         # model
         product_model = ProductModel()
         product_model.product_key = 'test_03'
@@ -89,7 +85,7 @@ class UpdateProductDaoTest(TestCase):
         # set data
         model_found.product_key = 'test_0001'
         model_found.product_description = 'test description update'
-        
+
         # update
         result = dao_product.update_product_dao(model_found)
         self.assertTrue(result, True)
