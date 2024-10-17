@@ -80,8 +80,9 @@ class ProductBsn:
         product_found = self.get_product_by_id_bsn(_product_id)
         product_exist = self.check_product_key(_product_schema.product_key)
 
-        if product_exist and product_found.id != product_exist.id \
-            and _product_schema.product_key == product_exist.product_key:
+        if product_exist and \
+            product_found.id != product_exist.id and \
+                _product_schema.product_key == product_exist.product_key:
             error_msg = f"La clave: {_product_schema.product_key} ya existe"
             raise BusinessError(error_msg)
 
@@ -110,9 +111,17 @@ class ProductBsn:
         filters = []
         if _filter_column:
             filter_operator = Tools.get_operator_dict().get(_filter_operator)
-            filters.append(FilterField(_filter_column, filter_operator, _filter_value))
+            filters.append(FilterField(
+                _filter_column,
+                filter_operator,
+                _filter_value
+            ))
         else:
-            filters.append(FilterField("product_key", FilterOperator.NOTEMPTY, None))
+            filters.append(FilterField(
+                "product_key",
+                FilterOperator.NOTEMPTY,
+                None
+            ))
 
         items, next_page, total_records = self.dao.search_products(
             _model=product_model,

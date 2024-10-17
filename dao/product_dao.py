@@ -18,29 +18,29 @@ class ProductDao:
         self.db = _db
 
     @step("[DAO] insert_product_dao ...", 2)
-    def insert_product_dao(self, _model:ProductModel) -> ProductModel:
+    def insert_product_dao(self, _model: ProductModel) -> ProductModel:
         model = self.db.insert(_model, True)
         return model
 
     @step("[DAO] get_product_dao ...", 2)
-    def get_product_dao(self, _model:ProductModel) -> ProductModel:
+    def get_product_dao(self, _model: ProductModel) -> ProductModel:
         record = self.db.select_one(_model)
         return record
 
     @step("[DAO] delete_product_dao ...", 2)
-    def delete_product_dao(self, _model:ProductModel):
+    def delete_product_dao(self, _model: ProductModel):
         self.db.delete(_model)
         return True
 
     @step("[DAO] update_product_dao ...", 2)
-    def update_product_dao(self, _model:ProductModel):
+    def update_product_dao(self, _model: ProductModel):
         self.db.update(_model)
         return True
 
     @step("[DAO] search_products ...", 2)
     def search_products(
         self,
-        _model:ProductModel,
+        _model: ProductModel,
         _filters=None,
         _ordering=None,
         _sorting=None,

@@ -18,29 +18,29 @@ class MenuItemDao:
         self.db = _db
 
     @step("[DAO] insert_menu_item_dao ...", 2)
-    def insert_menu_item_dao(self, _model:MenuItemModel) -> MenuItemModel:
+    def insert_menu_item_dao(self, _model: MenuItemModel) -> MenuItemModel:
         model = self.db.insert(_model, True)
         return model
 
     @step("[DAO] get_menu_item_dao ...", 2)
-    def get_menu_item_dao(self, _model:MenuItemModel) -> MenuItemModel:
+    def get_menu_item_dao(self, _model: MenuItemModel) -> MenuItemModel:
         record = self.db.select_one(_model)
         return record
 
     @step("[DAO] delete_menu_item_dao ...", 2)
-    def delete_menu_item_dao(self, _model:MenuItemModel):
+    def delete_menu_item_dao(self, _model: MenuItemModel):
         self.db.delete(_model)
         return True
 
     @step("[DAO] update_menu_item_dao ...", 2)
-    def update_menu_item_dao(self, _model:MenuItemModel):
+    def update_menu_item_dao(self, _model: MenuItemModel):
         self.db.update(_model)
         return True
 
     @step("[DAO] search_menu_items ...", 2)
     def search_menu_items(
         self,
-        _model:MenuItemModel,
+        _model: MenuItemModel,
         _filters=None,
         _ordering=None,
         _sorting=None,

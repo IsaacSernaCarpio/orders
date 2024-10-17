@@ -17,6 +17,7 @@ from libs.sources.mysql_declarative import Base
 from libs.models.base_mysql import MySQLModel
 from libs.models.base_mysql import MySQLModelCollection
 
+
 class MenuItemModel(Base, MySQLModel):
     __tablename__ = "menu_items"
 
@@ -41,6 +42,7 @@ class MenuItemModel(Base, MySQLModel):
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()
+
 
 class MenuItemCollection(MySQLModelCollection):
     __model__ = MenuItemModel

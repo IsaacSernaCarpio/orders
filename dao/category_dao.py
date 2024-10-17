@@ -18,29 +18,29 @@ class CategoryDao:
         self.db = _db
 
     @step("[DAO] insert_category_dao ...", 2)
-    def insert_category_dao(self, _model:CategoryModel) -> CategoryModel:
+    def insert_category_dao(self, _model: CategoryModel) -> CategoryModel:
         model = self.db.insert(_model, True)
         return model
 
     @step("[DAO] get_category_dao ...", 2)
-    def get_category_dao(self, _model:CategoryModel) -> CategoryModel:
+    def get_category_dao(self, _model: CategoryModel) -> CategoryModel:
         record = self.db.select_one(_model)
         return record
 
     @step("[DAO] delete_category_dao ...", 2)
-    def delete_category_dao(self, _model:CategoryModel):
+    def delete_category_dao(self, _model: CategoryModel):
         self.db.delete(_model)
         return True
 
     @step("[DAO] update_category_dao ...", 2)
-    def update_category_dao(self, _model:CategoryModel):
+    def update_category_dao(self, _model: CategoryModel):
         self.db.update(_model)
         return True
 
     @step("[DAO] search_categories ...", 2)
     def search_categories(
         self,
-        _model:CategoryModel,
+        _model: CategoryModel,
         _filters=None,
         _ordering=None,
         _sorting=None,

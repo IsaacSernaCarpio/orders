@@ -38,7 +38,7 @@ class OrderModel(Base, MySQLModel):
         return value
 
     @validates('order_status')
-    def convert_to_uppercase(self, value):
+    def convert_to_uppercase(self, _, value):
         if value is not None:
             return value.upper()
         return value
@@ -46,6 +46,7 @@ class OrderModel(Base, MySQLModel):
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()
+
 
 class OrderCollection(MySQLModelCollection):
     __model__ = OrderModel

@@ -44,5 +44,6 @@ class OrderItemModel(Base, MySQLModel):
     def get_columns(cls):
         return cls.__table__.columns.keys()
 
+
 class OrderItemCollection(MySQLModelCollection):
     __model__ = OrderItemModel

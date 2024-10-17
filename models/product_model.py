@@ -38,7 +38,7 @@ class ProductModel(Base, MySQLModel):
         return value
 
     @validates('product_key', 'product_description', 'unit_of_measure')
-    def convert_to_uppercase(self, value):
+    def convert_to_uppercase(self, _, value):
         if value is not None:
             return value.upper()
         return value
@@ -46,6 +46,7 @@ class ProductModel(Base, MySQLModel):
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()
+
 
 class ProductCollection(MySQLModelCollection):
     __model__ = ProductModel

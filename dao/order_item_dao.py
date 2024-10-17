@@ -18,29 +18,29 @@ class OrderItemDao:
         self.db = _db
 
     @step("[DAO] insert_order_item_dao ...", 2)
-    def insert_order_item_dao(self, _model:OrderItemModel) -> OrderItemModel:
+    def insert_order_item_dao(self, _model: OrderItemModel) -> OrderItemModel:
         model = self.db.insert(_model, True)
         return model
 
     @step("[DAO] get_order_item_dao ...", 2)
-    def get_order_item_dao(self, _model:OrderItemModel) -> OrderItemModel:
+    def get_order_item_dao(self, _model: OrderItemModel) -> OrderItemModel:
         record = self.db.select_one(_model)
         return record
 
     @step("[DAO] delete_order_item_dao ...", 2)
-    def delete_order_item_dao(self, _model:OrderItemModel):
+    def delete_order_item_dao(self, _model: OrderItemModel):
         self.db.delete(_model)
         return True
 
     @step("[DAO] update_order_item_dao ...", 2)
-    def update_order_item_dao(self, _model:OrderItemModel):
+    def update_order_item_dao(self, _model: OrderItemModel):
         self.db.update(_model)
         return True
 
     @step("[DAO] search_categories ...", 2)
     def search_order_items(
         self,
-        _model:OrderItemModel,
+        _model: OrderItemModel,
         _filters=None,
         _ordering=None,
         _sorting=None,

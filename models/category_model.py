@@ -28,7 +28,7 @@ class CategoryModel(Base, MySQLModel):
         return value
 
     @validates('category_description')
-    def convert_to_uppercase(self, value):
+    def convert_to_uppercase(self, _, value):
         if value is not None:
             return value.upper()
         return value
@@ -36,6 +36,7 @@ class CategoryModel(Base, MySQLModel):
     @classmethod
     def get_columns(cls):
         return cls.__table__.columns.keys()
+
 
 class CategoryCollection(MySQLModelCollection):
     __model__ = CategoryModel
